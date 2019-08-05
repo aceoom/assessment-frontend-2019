@@ -1,20 +1,28 @@
-import React                              from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { CreateIncident }                 from './pages/CreateIncident'
-import { Home }                           from './pages/Home'
-import { Header }                         from './components/Header'
+
+import IncidentList from './containers/IncidentList/IncidentList.container'
+import IncidentCreation from './containers/IncidentCreation/IncidentCreation.container'
+import { Header } from './components/Header'
+
+import { StorageProvider } from './lib/storage'
+import storage from './storage'
+
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App () {
   return (
-    <Router>
-      <div className="App">
-        <Header/>
-        <div>
-          <Route exact path="/" component={ Home }/>
-          <Route path="/create" component={ CreateIncident }/>
+    <StorageProvider value={storage}>
+      <Router>
+        <div className="App">
+          <Header/>
+          <div>
+            <Route exact path="/" component={ IncidentList }/>
+            <Route path="/create" component={ IncidentCreation }/>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </StorageProvider>
   )
 }
 
